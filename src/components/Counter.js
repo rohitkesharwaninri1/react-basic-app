@@ -1,5 +1,5 @@
 import React from 'react'
-import useCounter from '../../customhooks/useCounter';
+import useCounter from '../customhooks/useCounter';
 
 export default function Counter() {
   const initialState = 10;
