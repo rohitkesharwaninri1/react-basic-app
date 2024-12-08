@@ -1,28 +1,35 @@
-import React from 'react'
-import Counter from './components/CustomHook/Counter';
-import A from './components/HOC/A';
-import B from './components/HOC/B';
-import C from './components/HOC/C';
-import HOC from './components/HOC/HOC';
-import SimpleReduxCounter from  './components/SimpleReduxCounter/SimpleReduxCounter';
-// const EnhancedA = HOC(A);
+import style from "./App.css";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
+  const [counter, setCounter] = useState(0);
+  const [timerOn, setTimerOn] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (timerOn) {
+      timer = setTimeout(() => {
+        setCounter(counter + 1);
+      }, 1000);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [counter, timerOn]);
+
+  const handleReset = () => {
+    setCounter(0);
+  };
   return (
-    <div>
-
-      {/* Hooks */}
-      {/* <Counter/> */}
-
-
-      {/* HOC */}
-      {/* <EnhancedA lastName="kesharwani"/>
-      <B lastName="Gupta"/>
-      <C/> */}
-
-      {/* SimpleReduxCounter */}
-      <SimpleReduxCounter/>
-
+    <div className="App">
+      <h1>Stop Watach</h1>
+      <h2>{counter}</h2>
+      <div className="buttons">
+        <button onClick={() => setTimerOn(true)}>Start</button>
+        <button onClick={() => setTimerOn(false)}>Stop</button>
+        <button onClick={handleReset}>Reset</button>
+      </div>
+      <p className="tag">Made by Rohit Kesharwani with ❤️</p>
     </div>
-  )
+  );
 }
